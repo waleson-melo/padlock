@@ -23,5 +23,21 @@ Rode o arquivo **padlock.py**
 ## Imagens do Gerenciador de Senha:
 
 1. Tela de login
+
+   ![Tela de Login](https://github.com/waleson-melo/padlock/blob/main/img/imagens%20readme/0tela_login.png)
    
-   
+2. Tela principal
+
+   ![Tela Principal](https://github.com/waleson-melo/padlock/blob/main/img/imagens%20readme/1tela_principal.png)
+  
+3. Tela de usuário
+
+   ![Tela de Usuário](https://github.com/waleson-melo/padlock/blob/main/img/imagens%20readme/2tela_principal_usuario.png)
+ 
+4. Tela nova senha
+
+   ![Tela Nova Senha](https://github.com/waleson-melo/padlock/blob/main/img/imagens%20readme/3tela_novasenha.png)
+  
+5. Tela de visualizar, editar ou apagar senha
+
+   ![Tela de Visualizar, editar ou apagar senha](https://github.com/waleson-melo/padlock/blob/main/img/imagens%20readme/4tela_editarsenha.png)
