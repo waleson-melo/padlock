@@ -17,6 +17,7 @@
    ```
 
 Rode o arquivo **padlock.py**
+Usuário e Senha padrão: **admin**
 
 
 
