@@ -69,21 +69,25 @@ def main_view(list_senhas=[]):
     ]
     return sg.Window('Gerenciador de Senhas', layout, finalize=True)
 
-#========================================================================================
+#==============================================================================
 
 # Janela para adcionar senha
 def new_senha():
     sg.theme(thema)
-
+    text_size = (6,1)
+    input_size = (29,1)
     layout = [
-        [sg.Text('Nome:', size=(5, 1)), sg.Input('Plataforma(Ex.: Google, Facebook...)',
-            size=(29,1), focus=True, key='-INPNOMESENHA-')],
-        [sg.Text('Login:', size=(5, 1)), sg.Input(size=(29,1), focus=True,
+        [sg.Text('Nome:', size=text_size), sg.Input('', size=input_size,
+            tooltip='App, Plataforma, Site, etc...', focus=True,
+            key='-INPNOMESENHA-')],
+        [sg.Text('Login:', size=text_size), sg.Input(size=input_size,
             key='-INPLOGINSENHA-')],
-        [sg.Text('Senha:', size=(5, 1)), sg.Input(size=(29,1), focus=True,
+        [sg.Text('Senha:', size=text_size), sg.Input(size=input_size,
             key='-INPSENHASENHA-')],
-        [sg.Button('Salvar', size=(5,1)), sg.Button('Limpar', size=(5,1)),
-            sg.Button('Cancelar', size=(5,1))],
+
+        [sg.Text('', size=text_size), sg.Button('Salvar', size=button_size, 
+            bind_return_key=True), sg.Button('Limpar', size=button_size),
+            sg.Button('Cancelar', size=button_size, button_color=('','red'))],
     ]
     return sg.Window('Nova Senha', layout, finalize=True)
 
