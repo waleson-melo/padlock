@@ -34,25 +34,28 @@ def login_view():
 def main_view(list_senhas=[]):
     sg.theme(thema)
     # Tabs
+    text_size = (6,1)
     tab1_layout = [
-        [sg.Input(size=(29,1), enable_events=True, focus=True, key='-INPPROCURARSENHA-'),
-            sg.Button('Atualizar', size=(5,1))],
-        [sg.Listbox(list_senhas, size=(38,6), enable_events=True,
+        [sg.Input(size=(29,1), enable_events=True, focus=True,
+            key='-INPPROCURARSENHA-'), sg.Button('Atualizar', size=(5,1))],
+        [sg.Listbox(list_senhas, size=(38,10), enable_events=True,
             key='-LBXSENHA-')],
-        [sg.Button('Novo', size=(5, 1)), sg.Button('Logoff', size=(5, 1))],
+        [sg.Button('Novo', size=button_size), sg.Button('Logoff',
+            size=button_size, button_color=('','red'))],
     ]
     tab2_layout = [
-        [sg.Checkbox('Para editar marque a aqui.', default=False, enable_events=True,
-            key='-CHBEDITARUSUARIO-')],
-        [sg.Text('Id:', size=(5,1)), sg.Input(key='-INPIDUSUARIO-',
-            size=(19,1), disabled=True)],
-        [sg.Text('Nome:', size=(5, 1)), sg.Input(key='-INPNOMEUSUARIO-',
-            size=(19, 1))],
-        [sg.Text('Senha:', size=(5, 1)), sg.Input(key='-INPSENHAUSUARIO-',
-            size=(19, 1), password_char='*')],
-        [sg.Text('Senha*:', size=(5, 1)), sg.Input(key='-INPSENHA*USUARIO-',
-            size=(19, 1), password_char='*')],
-        [sg.Button('Editar', size=(5, 1))],
+        [sg.Text('ID:', size=text_size), sg.Input(key='-INPIDUSUARIO-',
+            size=input_size, disabled=True)],
+        [sg.Text('Nome:', size=text_size), sg.Input(key='-INPNOMEUSUARIO-',
+            size=input_size)],
+        [sg.Text('Senha:', size=text_size), sg.Input(key='-INPSENHAUSUARIO-',
+            size=input_size, password_char='*')],
+        [sg.Text('Senha*:', size=text_size), sg.Input(key='-INPSENHA*USUARIO-',
+            size=input_size, password_char='*')],
+
+        [sg.Checkbox('Para editar marque a aqui.', default=False,
+            enable_events=True, key='-CHBEDITARUSUARIO-')],
+        [sg.Button('Editar', size=button_size)],
     ]
     # Tabs Group
     tab_group_layout = [
