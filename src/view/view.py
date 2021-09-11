@@ -91,22 +91,25 @@ def new_senha():
     ]
     return sg.Window('Nova Senha', layout, finalize=True)
 
-#========================================================================================
+#==============================================================================
 
 # Janela para alterar e apagar senha
 def view_del_update_senha(dados_senha=['','','','']):
     sg.theme(thema)
-
+    text_size = (6,1)
     layout = [
-        [sg.Text('Id:', size=(5,1)), sg.Input(dados_senha[0], size=(29,1), disabled=True,
-            key='-INPIDDELUPSENHA-')],
-        [sg.Text('Nome:', size=(5,1)), sg.Input(dados_senha[1], size=(29,1),
-            key='-INPNOMEDELUPSENHA-')],
-        [sg.Text('Login:', size=(5,1)), sg.Input(dados_senha[2], size=(29,1),
-            key='-INPLOGINDELUPSENHA-')],
-        [sg.Text('Senha:', size=(5,1)), sg.Input(dados_senha[3], size=(29,1),
-            key='-INPSENHADELUPSENHA-')],
-        [sg.Button('Salvar', size=(5,1)), sg.Button('Limpar', size=(5,1)),
-            sg.Button('Apagar', size=(5,1)), sg.Button('Cancelar', size=(5,1))],
+        [sg.Text('ID:', size=text_size), sg.Input(dados_senha[0], size=(29,1),
+            disabled=True, key='-INPIDDELUPSENHA-')],
+        [sg.Text('Nome:', size=text_size), sg.Input(dados_senha[1], 
+            size=(29,1), key='-INPNOMEDELUPSENHA-', focus=True)],
+        [sg.Text('Login:', size=text_size), sg.Input(dados_senha[2],
+            size=(29,1), key='-INPLOGINDELUPSENHA-')],
+        [sg.Text('Senha:', size=text_size), sg.Input(dados_senha[3],
+            size=(29,1), key='-INPSENHADELUPSENHA-')],
+
+        [sg.Button('Salvar', size=button_size, bind_return_key=True),
+            sg.Button('Limpar', size=button_size), sg.Button('Apagar',
+            size=button_size, button_color=('','red')),
+            sg.Button('Cancelar', size=button_size, button_color=('','red'))],
     ]
     return sg.Window('Visualizar, Alterar ou Apagar', layout, finalize=True)
