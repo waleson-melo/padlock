@@ -1,7 +1,8 @@
 import PySimpleGUI as sg
 
+from src.util.util import pegar_thema
 
-thema = 'DefaultNoMoreNagging'
+thema = pegar_thema()
 
 button_size = (5,1)
 input_size = (19,1)
