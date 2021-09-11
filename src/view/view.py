@@ -1,24 +1,34 @@
 import PySimpleGUI as sg
-from PySimpleGUI.PySimpleGUI import Button
 
 
 thema = 'DefaultNoMoreNagging'
+
+button_size = (5,1)
+input_size = (19,1)
 
 # Constroi a Tela de Login
 def login_view():
     sg.theme(thema)
 
+    frame_image = [
+        [sg.Image('img/user.png', expand_y=True)]
+    ]
+    col_dados = [
+        [sg.Text('Nome:')],
+        [sg.Input('', key='-NOMELOGIN-', size=input_size, focus=True)],
+
+        [sg.Text('Senha:')],
+        [sg.Input('', key='-SENHALOGIN-',size=input_size, password_char='*')],
+
+        [sg.Button('Entrar', size=button_size, bind_return_key=True),
+            sg.Button('Sair', size=button_size, button_color=('','red'))]
+    ]
     layout = [
-        [sg.Text('Nome:', size=(5, 1)), sg.Input(key='-NOMELOGIN-', 
-            size=(19, 1))],
-        [sg.Text('Senha:', size=(5, 1)), sg.Input(key='-SENHALOGIN-',
-            size=(19, 1), password_char='*')],
-        [sg.Text('', size=(5, 1)), sg.Button('Entrar', size=(5, 1)),
-            sg.Button('Sair', size=(5, 1))]
+        [sg.Frame('', frame_image, expand_y=True), sg.Column(col_dados)]
     ]
     return sg.Window('Entrar no Sistema', layout, finalize=True)
 
-#========================================================================================
+#==============================================================================
 
 # Constroi a Tela Principal
 def main_view(list_senhas=[]):
