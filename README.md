@@ -20,7 +20,8 @@ Rode o arquivo **padlock.py**
 
 Usuário e Senha padrão: **admin**
 
-
+### Opcional:
+1. No arquivo **thema.txt** pode ser colocado o nome do tema das janelas. A lista de themas desponivei esta [aqui](https://pysimplegui.readthedocs.io/en/latest/cookbook/#themes-window-beautification).
 
 ## Imagens do Gerenciador de Senha:
 
