@@ -1,48 +1,62 @@
 import PySimpleGUI as sg
-from PySimpleGUI.PySimpleGUI import Button
 
+from src.util.util import pegar_thema
 
-thema = 'DefaultNoMoreNagging'
+thema = pegar_thema()
+
+button_size = (5,1)
+input_size = (19,1)
 
 # Constroi a Tela de Login
 def login_view():
     sg.theme(thema)
 
+    frame_image = [
+        [sg.Image('img/user.png', expand_y=True)]
+    ]
+    col_dados = [
+        [sg.Text('Nome:')],
+        [sg.Input('', key='-NOMELOGIN-', size=input_size, focus=True)],
+
+        [sg.Text('Senha:')],
+        [sg.Input('', key='-SENHALOGIN-',size=input_size, password_char='*')],
+
+        [sg.Button('Entrar', size=button_size, bind_return_key=True),
+            sg.Button('Sair', size=button_size, button_color=('','red'))]
+    ]
     layout = [
-        [sg.Text('Nome:', size=(5, 1)), sg.Input(key='-NOMELOGIN-', 
-            size=(19, 1))],
-        [sg.Text('Senha:', size=(5, 1)), sg.Input(key='-SENHALOGIN-',
-            size=(19, 1), password_char='*')],
-        [sg.Text('', size=(5, 1)), sg.Button('Entrar', size=(5, 1)),
-            sg.Button('Sair', size=(5, 1))]
+        [sg.Frame('', frame_image, expand_y=True), sg.Column(col_dados)]
     ]
     return sg.Window('Entrar no Sistema', layout, finalize=True)
 
-#========================================================================================
+#==============================================================================
 
 # Constroi a Tela Principal
 def main_view(list_senhas=[]):
     sg.theme(thema)
     # Tabs
+    text_size = (6,1)
     tab1_layout = [
-        [sg.Input(size=(29,1), enable_events=True, focus=True, key='-INPPROCURARSENHA-'),
-            sg.Button('Atualizar', size=(5,1))],
-        [sg.Listbox(list_senhas, size=(38,6), enable_events=True,
+        [sg.Input(size=(29,1), enable_events=True, focus=True,
+            key='-INPPROCURARSENHA-'), sg.Button('Atualizar', size=(5,1))],
+        [sg.Listbox(list_senhas, size=(38,10), enable_events=True,
             key='-LBXSENHA-')],
-        [sg.Button('Novo', size=(5, 1)), sg.Button('Logoff', size=(5, 1))],
+        [sg.Button('Novo', size=button_size), sg.Button('Logoff',
+            size=button_size, button_color=('','red'))],
     ]
     tab2_layout = [
-        [sg.Checkbox('Para editar marque a aqui.', default=False, enable_events=True,
-            key='-CHBEDITARUSUARIO-')],
-        [sg.Text('Id:', size=(5,1)), sg.Input(key='-INPIDUSUARIO-',
-            size=(19,1), disabled=True)],
-        [sg.Text('Nome:', size=(5, 1)), sg.Input(key='-INPNOMEUSUARIO-',
-            size=(19, 1))],
-        [sg.Text('Senha:', size=(5, 1)), sg.Input(key='-INPSENHAUSUARIO-',
-            size=(19, 1), password_char='*')],
-        [sg.Text('Senha*:', size=(5, 1)), sg.Input(key='-INPSENHA*USUARIO-',
-            size=(19, 1), password_char='*')],
-        [sg.Button('Editar', size=(5, 1))],
+        [sg.Text('ID:', size=text_size), sg.Input(key='-INPIDUSUARIO-',
+            size=input_size, disabled=True)],
+        [sg.Text('Nome:', size=text_size), sg.Input(key='-INPNOMEUSUARIO-',
+            size=input_size)],
+        [sg.Text('Senha:', size=text_size), sg.Input(key='-INPSENHAUSUARIO-',
+            size=input_size, password_char='*')],
+        [sg.Text('Senha*:', size=text_size), sg.Input(key='-INPSENHA*USUARIO-',
+            size=input_size, password_char='*')],
+
+        [sg.Checkbox('Para editar marque a aqui.', default=False,
+            enable_events=True, key='-CHBEDITARUSUARIO-')],
+        [sg.Button('Editar', size=button_size)],
     ]
     # Tabs Group
     tab_group_layout = [
@@ -56,40 +70,47 @@ def main_view(list_senhas=[]):
     ]
     return sg.Window('Gerenciador de Senhas', layout, finalize=True)
 
-#========================================================================================
+#==============================================================================
 
 # Janela para adcionar senha
 def new_senha():
     sg.theme(thema)
-
+    text_size = (6,1)
+    input_size = (29,1)
     layout = [
-        [sg.Text('Nome:', size=(5, 1)), sg.Input('Plataforma(Ex.: Google, Facebook...)',
-            size=(29,1), focus=True, key='-INPNOMESENHA-')],
-        [sg.Text('Login:', size=(5, 1)), sg.Input(size=(29,1), focus=True,
+        [sg.Text('Nome:', size=text_size), sg.Input('', size=input_size,
+            tooltip='App, Plataforma, Site, etc...', focus=True,
+            key='-INPNOMESENHA-')],
+        [sg.Text('Login:', size=text_size), sg.Input(size=input_size,
             key='-INPLOGINSENHA-')],
-        [sg.Text('Senha:', size=(5, 1)), sg.Input(size=(29,1), focus=True,
+        [sg.Text('Senha:', size=text_size), sg.Input(size=input_size,
             key='-INPSENHASENHA-')],
-        [sg.Button('Salvar', size=(5,1)), sg.Button('Limpar', size=(5,1)),
-            sg.Button('Cancelar', size=(5,1))],
+
+        [sg.Text('', size=text_size), sg.Button('Salvar', size=button_size, 
+            bind_return_key=True), sg.Button('Limpar', size=button_size),
+            sg.Button('Cancelar', size=button_size, button_color=('','red'))],
     ]
     return sg.Window('Nova Senha', layout, finalize=True)
 
-#========================================================================================
+#==============================================================================
 
 # Janela para alterar e apagar senha
 def view_del_update_senha(dados_senha=['','','','']):
     sg.theme(thema)
-
+    text_size = (6,1)
     layout = [
-        [sg.Text('Id:', size=(5,1)), sg.Input(dados_senha[0], size=(29,1), disabled=True,
-            key='-INPIDDELUPSENHA-')],
-        [sg.Text('Nome:', size=(5,1)), sg.Input(dados_senha[1], size=(29,1),
-            key='-INPNOMEDELUPSENHA-')],
-        [sg.Text('Login:', size=(5,1)), sg.Input(dados_senha[2], size=(29,1),
-            key='-INPLOGINDELUPSENHA-')],
-        [sg.Text('Senha:', size=(5,1)), sg.Input(dados_senha[3], size=(29,1),
-            key='-INPSENHADELUPSENHA-')],
-        [sg.Button('Salvar', size=(5,1)), sg.Button('Limpar', size=(5,1)),
-            sg.Button('Apagar', size=(5,1)), sg.Button('Cancelar', size=(5,1))],
+        [sg.Text('ID:', size=text_size), sg.Input(dados_senha[0], size=(29,1),
+            disabled=True, key='-INPIDDELUPSENHA-')],
+        [sg.Text('Nome:', size=text_size), sg.Input(dados_senha[1], 
+            size=(29,1), key='-INPNOMEDELUPSENHA-', focus=True)],
+        [sg.Text('Login:', size=text_size), sg.Input(dados_senha[2],
+            size=(29,1), key='-INPLOGINDELUPSENHA-')],
+        [sg.Text('Senha:', size=text_size), sg.Input(dados_senha[3],
+            size=(29,1), key='-INPSENHADELUPSENHA-')],
+
+        [sg.Button('Salvar', size=button_size, bind_return_key=True),
+            sg.Button('Limpar', size=button_size), sg.Button('Apagar',
+            size=button_size, button_color=('','red')),
+            sg.Button('Cancelar', size=button_size, button_color=('','red'))],
     ]
     return sg.Window('Visualizar, Alterar ou Apagar', layout, finalize=True)
