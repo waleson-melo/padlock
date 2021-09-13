@@ -36,6 +36,7 @@ def main_view(list_senhas=[]):
     sg.theme(thema)
     # Tabs
     text_size = (6,1)
+    # Tab layout Listar as senhas
     tab1_layout = [
         [sg.Input(size=(29,1), enable_events=True, focus=True,
             key='-INPPROCURARSENHA-'), sg.Button('Atualizar', size=(5,1))],
@@ -44,6 +45,7 @@ def main_view(list_senhas=[]):
         [sg.Button('Novo', size=button_size), sg.Button('Logoff',
             size=button_size, button_color=('','red'))],
     ]
+    # Tab Usuario
     tab2_layout = [
         [sg.Text('ID:', size=text_size), sg.Input(key='-INPIDUSUARIO-',
             size=input_size, disabled=True)],
@@ -58,10 +60,22 @@ def main_view(list_senhas=[]):
             enable_events=True, key='-CHBEDITARUSUARIO-')],
         [sg.Button('Editar', size=button_size)],
     ]
+    # Tab Gerar senha
+    tab3_layout = [
+        [sg.Text('Quantidade de caracteres'),
+            sg.Combo(values=list(range(15)), key='-CBXQUANTIDADE_CHAR-',
+            default_value=8, size=(3, 1))],
+        [sg.Text('Senha:', size=text_size), 
+            sg.Input('', size=input_size, disabled=True,
+            key='-INPSENHAGERADA-')],
+        [sg.Button('Gerar', size=button_size),
+            sg.Button('Salvar', size=button_size)]
+    ]
     # Tabs Group
     tab_group_layout = [
         [sg.Tab('Senhas', tab1_layout, key='-TAB1SENHA-')],
-        [sg.Tab('Usuário', tab2_layout, key='-TAB2SENHA-')],
+        [sg.Tab('Gerar Senha', tab3_layout, key='-TAB3GERARSENHA-')],
+        [sg.Tab('Usuário', tab2_layout, key='-TAB2SENHA-')]
     ]
 
     layout = [
@@ -73,7 +87,7 @@ def main_view(list_senhas=[]):
 #==============================================================================
 
 # Janela para adcionar senha
-def new_senha():
+def new_senha(senha=''):
     sg.theme(thema)
     text_size = (6,1)
     input_size = (29,1)
@@ -81,9 +95,9 @@ def new_senha():
         [sg.Text('Nome:', size=text_size), sg.Input('', size=input_size,
             tooltip='App, Plataforma, Site, etc...', focus=True,
             key='-INPNOMESENHA-')],
-        [sg.Text('Login:', size=text_size), sg.Input(size=input_size,
+        [sg.Text('Login:', size=text_size), sg.Input('', size=input_size,
             key='-INPLOGINSENHA-')],
-        [sg.Text('Senha:', size=text_size), sg.Input(size=input_size,
+        [sg.Text('Senha:', size=text_size), sg.Input(senha, size=input_size,
             key='-INPSENHASENHA-')],
 
         [sg.Text('', size=text_size), sg.Button('Salvar', size=button_size, 

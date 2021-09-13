@@ -1,5 +1,7 @@
 import PySimpleGUI as sg
-from PySimpleGUI.PySimpleGUI import popup, popup_yes_no
+
+import random
+
 from src.view.view import *
 
 import src.controller.loginController as lgc
@@ -101,6 +103,21 @@ while True:
             else:
                 sg.popup('Erro ao selecionar senha, tente atualizar a lista.')
     
+        # Gerar a senha
+        if event == 'Gerar':
+            char_list = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!@#$%¨&*'
+            chars = random.choices(char_list, k=int(values['-CBXQUANTIDADE_CHAR-']))
+            new_pass = ''.join(chars)
+            window['-INPSENHAGERADA-'].update(new_pass)
+
+        if event == 'Salvar':
+            if values['-INPSENHAGERADA-'] != '':
+                win_new_senha = new_senha(values['-INPSENHAGERADA-'])
+                win_main.hide()
+            else:
+                sg.popup_ok('Aperte em Gerar para poder salvar a senha',
+                    title='Aviso', auto_close=True, auto_close_duration=3)
+
         # # Pegando o usuario do banco e colocando nos campos para edição
         if values['-INPIDUSUARIO-'] == '':
             usuario = get_usuario()
