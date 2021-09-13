@@ -57,9 +57,11 @@ while True:
                     win_main = main_view(get_senhas())
                 win_login.hide()
             else:
-                sg.popup('Nome ou Senha não conferem. Tente novamente.')
+                sg.popup('Nome ou Senha não conferem. Tente novamente.',
+                    title='Erro ao efetuar login.')
         else:
-            sg.popup('Preencha os campos.')
+            sg.popup('Preencha os campos.', title='Aviso', auto_close=True,
+                auto_close_duration=3)
 
 #========================================================================================
 
@@ -91,7 +93,8 @@ while True:
             nome_senhas = []
             get_senhas()
             win_main['-LBXSENHA-'].update(nome_senhas)
-            sg.popup('Lista atualizada.')
+            sg.popup_ok('Lista atualizada.', title='Atualizada',
+                auto_close=True, auto_close_duration=1)
     
         # Evento da seleção de uma senha na listbox
         if event == '-LBXSENHA-' and len(values['-LBXSENHA-']):
@@ -101,7 +104,8 @@ while True:
                 win_view_del_update_senha = view_del_update_senha(dados_senha[0])
                 win_main.hide()
             else:
-                sg.popup('Erro ao selecionar senha, tente atualizar a lista.')
+                sg.popup_ok('Erro ao selecionar senha, tente atualizar a lista.',
+                    title='Aviso')
     
         # Gerar a senha
         if event == 'Gerar':
@@ -148,14 +152,18 @@ while True:
                             window['-CHBEDITARUSUARIO-'].update(False)
                             window['-INPSENHA*USUARIO-'].update(False)
                             window['-TAB1SENHA-'].select()
-                            sg.popup('Usuário alterado com sucesso.')
+                            sg.popup('Usuário alterado com sucesso.',
+                                title='Sucesso', auto_close=True,
+                                auto_close_duration=3)
                         else:
                             sg.popup_error('Erro ao atualizar usuário.',
                                 str(ret_update_usuario[1]))
                     else:
-                        sg.popup('As senhas são diferentes.')
+                        sg.popup('As senhas são diferentes.', title='Sucesso',
+                            auto_close=True, auto_close_duration=3)
                 else:
-                    sg.popup('Preencha os campos.')
+                    sg.popup('Preencha os campos.', title='Aviso',
+                        auto_close=True, auto_close_duration=3)
         else:
             window['Editar'].update(disabled=True)
             window['-INPNOMEUSUARIO-'].update(disabled=True)
@@ -183,14 +191,16 @@ while True:
                     values['-INPLOGINSENHA-'], values['-INPSENHASENHA-'])
                 
                 if ret_save_senha[0]:
-                    sg.popup('Senha salva com sucesso.')
+                    sg.popup('Senha salva com sucesso.', title='Sucesso',
+                        auto_close=True, auto_close_duration=3)
                     win_new_senha.close()
                     win_new_senha = None
                     win_main.un_hide()
                 else:
                     sg.popup_error('Erro ao salvar senha.', str(ret_save_senha[1]))
             else:
-                sg.popup('Preencha os campos!')
+                sg.popup('Preencha os campos!', title='Aviso', auto_close=True,
+                    auto_close_duration=3)
 
         if event == 'Limpar':
             window['-INPNOMESENHA-'].update('')
@@ -223,20 +233,23 @@ while True:
                     values['-INPNOMEDELUPSENHA-'].upper(), values['-INPLOGINDELUPSENHA-'],
                     values['-INPSENHADELUPSENHA-'])
                 if ret_update_senha[0]:
-                    sg.popup('Senha salva com sucesso.')
+                    sg.popup('Senha salva com sucesso.', title='Sucesso',
+                        auto_close=True, auto_close_duration=3)
                     win_view_del_update_senha.close()
                     win_view_del_update_senha = None
                     win_main.un_hide()
                 else:
                     sg.popup_error('Erro ao salvar senha', str(ret_update_senha[1]))
             else:
-                sg.popup('Preencha os campos!')
+                sg.popup('Preencha os campos!', title='Aviso', auto_close=True,
+                    auto_close_duration=3)
 
         if event == 'Apagar':
-            if popup_yes_no('Deseja apagar a senha?') == 'Yes':
+            if sg.popup_yes_no('Deseja apagar a senha?') == 'Yes':
                 ret_delete_senha = senhas_controller.deleteSenha(values['-INPIDDELUPSENHA-'])
                 if ret_delete_senha[0]:
-                    sg.popup('Senha apagada com sucesso.')
+                    sg.popup('Senha apagada com sucesso.', title='Sucesso',
+                        auto_close=True, auto_close_duration=3)
                     win_view_del_update_senha.close()
                     win_view_del_update_senha = None
                     win_main.un_hide()
